@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações de Contato - Execuções Penais - MPDFT</title>
+    <style>
+        /* Estilo geral */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #002e5d;
+        }
+        .logo small {
+            font-size: 0.6em;
+            color: #8B0000;
+        }
+        h2 {
+            color: #002e5d;
+            font-size: 1.4em;
+            border-bottom: 2px solid #8B0000;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: left;
+        }
+        .nav-buttons button {
+            flex: 1 1 300px;
+            max-width: 350px;
+            padding: 15px;
+            font-size: 1.1em;
+            background-color: #8B0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-buttons button:hover {
+            background-color: #002e5d;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: none;
+        }
+        .contact-info {
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-top: 20px;
+            border: 1px solid #DDD;
+            padding: 10px;
+        }
+        .additional-info {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #DDD;
+        }
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .contacts-grid div {
+            padding: 8px;
+            border: 1px solid #DDD;
+        }
+        .highlight {
+            background-color: #BDB76B;
+        }
+        .highlightPepema {
+            background-color: #FFFFE0;
+        }
+        .highlightPepe {
+            background-color: #EEE8AA;
+        }
+        .highlightAdicional {
+            background-color: #FFFF99;
+            font-size: 1.1em;
+            color: red;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .contacts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-buttons button {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+    <script>
+        function mostrarSecao(numeroSecao) {
+            const secoes = document.querySelectorAll('.section');
+            secoes.forEach((secao, index) => {
+                secao.style.display = (index + 1 === numeroSecao) ? 'block' : 'none';
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+           Informações de Contato - Execuções Penais - MPDFT<br>
+            <small>Atualizado em 31/01/2025 (by leonardo.jesus)</small>
+        </div>
+        <div class="nav-buttons">
+            
+            <button onclick="mostrarSecao(1)">Contatos - MPDFT - Sede</button>
+            <button onclick="mostrarSecao(2)">Contatos - Execuções Penais - MPDFT</button>            
+            <button onclick="mostrarSecao(3)">Equipe Psicossocial - MPDFT</button>
+            <button onclick="mostrarSecao(4)">Contatos - DPDF</button>
+        </div>
+
+         <div class="section" id="secao1">
+            <h2>Contatos - MPDFT</h2>
+            <div class="contact-info">
+                <p><strong>Endereço:</strong> Eixo Monumental, Praça do Buriti, Lote 2, Ed. Sede do MPDFT, Sala 402 - CEP 70091-900 - Brasília-DF</p>
+                <p><strong>Horário de funcionamento:</strong> Dias úteis, das 12h às 19h - <strong>Telefone:</strong> (61) 3343-9500</p>
+                <p><strong>Plantão:</strong> (61) 3103-6217 / 3103-6219</p>
+                <p><strong>E-mail:</strong> proep@mpdft.mp.br</p>
+            </div>
+        </div>
+        
+        <div class="section" id="secao2">
+            <h2>Contatos - Execuções Penais</h2>
+            <div class="contacts-grid">
+                <div><strong>Descrição</strong></div>
+                <div><strong>Ramal</strong></div>
+                <div><strong>Descrição</strong></div>
+                <div><strong>Ramal</strong></div>
+
+                <div class="highlightPepema">1ª PEPEMA</div><div class="highlightPepema">9681</div>
+                <div class="highlightPepema">2ª PEPEMA</div><div class="highlightPepema">6241</div>
+                <div class="highlightPepema">3ª PEPEMA</div><div class="highlightPepema">6293</div>
+                <div class="highlightPepema">4ª PEPEMA</div><div class="highlightPepema">9237</div>
+                <div class="highlightPepema">5ª PEPEMA</div><div class="highlightPepema">9487</div>
+                <div class="highlightPepe">1ª Promotoria</div><div class="highlightPepe">9451</div>
+                <div class="highlightPepe">2ª Promotoria</div><div class="highlightPepe">9411</div>
+                <div class="highlightPepe">3ª Promotoria</div><div class="highlightPepe">9581</div>
+                <div class="highlightPepe">4ª Promotoria</div><div class="highlightPepe">9585</div>
+                <div class="highlightPepe">5ª Promotoria</div><div class="highlightPepe">9580</div>
+                <div class="highlight">6ª Promotoria</div><div class="highlight">9579</div>
+                <div class="highlightPepe">7ª Promotoria</div><div class="highlightPepe">6421</div>
+                <div class="highlightPepe">Operacional</div><div class="highlightPepe">6476</div>
+                <div>Setor de Apoio - Flávia</div><div>6368</div>
+                <div>Setor de Apoio - Valter</div><div>9950</div>
+                <div>Vanderlei Ramal</div><div>9872</div>
+                <div>Sala 401</div><div>6293</div>
+                <div class="highlight">Patrimônio Impressora</div><div class="highlight">Imp55721</div>
+                <div class="highlight">E-mail</div><div class="highlight">proep@mpdft.mp.br</div>
+            </div>
+            <div class="contact-info">
+                <h4>Atendimentos - Procedimentos (Resumo):</h4>
+                <hr>
+                <p><b>* Atendimentos:</b> Devem ser feitos pelo analista da promotoria responsável pelo processo. Excepcionalmente, será chamado pela lista.</p>
+                <p style="background-color: #FFFF99;"><b><font style="color: red;">* SALA 107:</b></font> Triagem para atendimento de internos e familiares. <u>Se necessário colher termo, o analista vai para a <b><font style="color: red;">SALA 107.</font></b></u></p>
+                <p style="background-color: #FFFF99;"><b><font style="color: red;">* Advogados:</b></font> A recepção contata o setor de apoio primeiro. <u>Se necessário falar com o analista da promotoria, o atendimento será na <b><font style="color: red;">SALA 431</b></font></u>. <u>Se o analista não estiver na sala, será chamado na ordem da lista, acompanhada pelo <b><font style="color: red;">setor de apoio.</font></b></u></p>
+                <p><b>* Atendimento Telefônico:</b> Sentar próximo ao ramal da promotoria ou puxar a ligação do seu ramal. Não mencionar minutas anexadas e jamais informar o teor da minuta.</p>
+            </div>
+            <div class="additional-info">
+                <h2><i>Informações Adicionais:</i></h2>
+                <p class="highlightAdicional"><strong>&gt;&gt; <u>Prefixo telefônico:</u></strong></br></br> 3343-XXXX</p>
+                <p class="highlightAdicional"><strong>&gt;&gt; <u>Puxar ramal:</u></strong></br></br> *53</p>
+				<p class="highlightAdicional"><strong>&gt;&gt; <u>Redirecional ligações de ramais:</u></strong> </br></br>Para transferir ligações de um ramal para um celular, vá ao ramal da promotoria e digite *32 seguido do número do celular para o qual deseja transferir as ligações. No final do dia, é necessário digitar *30 no ramal para redirecionar as ligações de volta ao ramal</p>
+            </div>
+        </div> 
+        
+         
+        <div class="section" id="secao3">
+            <h2>Equipe Psicossocial - MPDFT</h2>
+            <div class="contact-info">
+            <p> O MPDFT descentralizou o atendimento psicossocial para melhorar a eficácia e o acesso da população. Desde 2012, foram criados setores de análise psicossocial em várias cidades do DF, facilitando o trabalho de assistentes sociais e psicólogos e proporcionando respostas mais efetivas às demandas das Promotorias de Justiça. As cidades que não possuem setor psicossocial são Águas Claras e Recanto das Emas.</p> <hr>
+
+                <p><strong>Coordenação Executiva Psicossocial (CEPS):</strong> Flávia de Araújo Cordeiro Valentim</p>
+                <p><strong>Endereço:</strong> Setor de Múltiplas Atividades Sul - SMAS, trecho 4, lotes 6/8, sala 109, Brasília-DF (Guará) - Ao lado do Fórum Desembargador José Júlio Leal Fagundes</p>
+                <p><strong>Telefone:</strong> (61) 3214-4466 (WhatsApp)</p>
+                <p><strong>E-mail:</strong> psicossocial@mpdft.mp.br</p>
+                <p><strong>Centros Regionais Psicossociais:</strong></p>
+                <ul>
+                    <li><strong>CERP I:</strong> (Brasília II, Guará, Núcleo Bandeirante, Riacho Fundo) - <strong>Telefone:</strong> (61) 99283-8405 (WhatsApp) - <strong>E-mail:</strong> cerpi@mpdft.mp.br</li>
+                    <li><strong>CERP II:</strong> (Paranoá, Planaltina, São Sebastião, Sobradinho) - <strong>Telefone:</strong> (61) 99120-7321 (WhatsApp) - <strong>E-mail:</strong> cerpii@mpdft.mp.br</li>
+                    <li><strong>CERP III:</strong> (Águas Claras, Brazlândia, Ceilândia, Taguatinga) - <strong>Telefone:</strong> (61) 99147-3525 (WhatsApp) - <strong>E-mail:</strong> cerpiii@mpdft.mp.br</li>
+                    <li><strong>CERP IV:</strong> (Gama, Recanto das Emas, Samambaia, Santa Maria) - <strong>Telefone:</strong> (61) 99132-3551 (WhatsApp) - <strong>E-mail:</strong> cerpiv@mpdft.mp.br</li>
+                </ul>
+            </div>
+        </div>
+    
+
+  <div class="section" id="secao4">
+            <h2>Contatos - DPDF</h2>
+            <div class="contact-info">
+                <p><strong>Coordenação:</strong> Defensor Público Felipe Zucchini Coracini</p>
+                <p><strong>Endereço:</strong> Setor Comercial Norte, Quadra 01, Lote G, Ed. Rossi Esplanada Business, loja 01 - Próximo ao Hran</p>
+                <p><strong>Horário de funcionamento:</strong> Dias úteis, das 12h às 18h - <strong>Telefone:</strong> 129 ou (61) 3465-8200 (ligações de fora do DF)</p>
+            </div></div>
+    
+</body>
+</html>
