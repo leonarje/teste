@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Execuções Penais - Básica - MPDFT</title>
+    <style>
+        /* Estilo geral */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f4f4; 
+            color: #333; 
+        }
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px 40px; 
+            box-sizing: border-box; 
+        }
+
+        /* Logo */
+        .logo { 
+            font-size: 1.5em; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 15px; 
+            color: #002e5d; 
+        }
+        .logo small { 
+            font-size: 0.6em; 
+            color: #8B0000; 
+        }
+
+        /* Seções */
+        .section { 
+            margin-bottom: 30px; 
+            padding: 15px; 
+            background-color: #fff; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+        }
+        h2 { 
+            color: #002e5d; 
+            font-size: 1.4em; 
+            border-bottom: 2px solid #8B0000; 
+            padding-bottom: 5px; 
+            margin-bottom: 15px; 
+        }
+
+        /* Labels e botões */
+        label { 
+            font-weight: bold; 
+            font-size: 0.9em; 
+            color: #555; 
+            margin-bottom: 5px; 
+        }
+        .input-group, .input-row { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+            margin-top: 10px; 
+            align-items: center; 
+        }
+        .input-group label, .input-row label { 
+            flex: 1; 
+            min-width: 100px; 
+        }
+        .input-group input, .input-row input { 
+            width: 100%; 
+            padding: 6px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 0.9em; 
+        }
+        button { 
+            padding: 10px; 
+            background-color: #8B0000; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            margin-top: 15px; 
+            width: 100%; 
+        }
+        button:hover { 
+            background-color: #002e5d; 
+        }
+
+        /* Resultados */
+        .result { 
+            font-weight: bold; 
+            margin-top: 15px; 
+            font-size: 1em; 
+            text-align: center; 
+            line-height: 1.6; 
+        }
+        .fractions-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 10px; 
+            margin-top: 20px; 
+            width: 100%; 
+        }
+        .fractions-grid > div {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .success { 
+            color: #006400; 
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
+        }
+        .fail { 
+            color: #B22222; 
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
+        }
+        .success1 { 
+            color: #006400; 
+            background-color: #DCDCDC;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
+        }
+        .fail1 { 
+            color: #B22222; 
+            background-color: #DCDCDC;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Menu de Navegação */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: left;
+        }
+        .nav-buttons button {
+            flex: 1 1 300px;
+            max-width: 350px;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+        .progression-analysis {
+            background-color: #DCDCDC;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: #002e5d;
+        }
+        .progression-analysis h4 {
+            color: #002e5d;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo da Calculadora -->
+        <div class="logo">
+            Calculadora de Execuções Penais - Básica - MPDFT <br>
+            <small>Atualizado em 20/02/2025 (by leonardo.jesus)</small>
+        </div>
+
+        <!-- Menu de Navegação -->
+        <div class="nav-buttons">
+            <button onclick="mostrarSecao(1)">Pena Total x Pena Cumprida (cálculo fração de penas)</button>
+            <button onclick="mostrarSecao(3)">Detração (pena cumprida entre datas)</button>
+            <button onclick="mostrarSecao(4)">Idade (análise idade x data marco)</button>
+            <button onclick="mostrarSecao(5)">Data (adicionar ou subtrair dias)</button>			
+            <button onclick="mostrarSecao(6)">Conversão - Dias (anos, meses e dias) </button>
+            <button onclick="mostrarSecao(7)">Soma de Penas</button>
+            <button onclick="mostrarSecao(8)">Prescrição (análise)</button>
+            <button onclick="mostrarSecao(9)">Proposta de trabalho(análise de Horário)</button>
+        </div>
+
+        <!-- Seção 1: Conversão de Pena Total Unificada e Pena Cumprida -->
+        <div class="section" id="secao1">
+            <h2>Pena Total Unificada e Cálculo de Fração de Pena</h2>
+            <h3>Pena Total Unificada</h3>
+            <div class="input-group">
+                <label>Anos<br><input type="number" id="anos-total" placeholder="0" min="0"></label>
+                <label>Meses<br><input type="number" id="meses-total" placeholder="0" min="0"></label>
+                <label>Dias<br><input type="number" id="dias-total" placeholder="0" min="0"></label>
+            </div>
+
+            <h3>Pena Cumprida</h3>
+            <div class="input-group">
+                <label>Anos<br><input type="number" id="anos-cumprida" placeholder="0" min="0"></label>
+                <label>Meses<br><input type="number" id="meses-cumprida" placeholder="0" min="0"></label>
+                <label>Dias<br><input type="number" id="dias-cumprida" placeholder="0" min="0"></label>
+            </div>
+
+            <button onclick="calcularPenaEmDias()">Conversão Penas total e Cumprida <small> <i>(de ano, mês e dia para dias)</i></small></button>
+            <p id="result-pena-dias" class="result"></p>
+        </div>
+
+        <!-- Seção 2: Cálculo de Fração de Pena -->
+        <div class="section" id="secao2">
+            <h2>Cálculo de Fração de Pena</h2>
+            <div class="input-group">
+                <label>Pena Total (em dias)<br><input type="number" id="total-pena" placeholder="Total de pena em dias" min="0"></label>
+                <label>Pena Cumprida (em dias)<br><input type="number" id="pena-cumprida-dias" placeholder="Pena cumprida em dias" min="0"></label>
+            </div>
+            <button onclick="calcularFracaoCumprida()">Calcular Fração Cumprida <small><i>(em dias)</small></i></button>
+            <div id="result-fracao-cumprida"></div>
+        </div>
+
+        <!-- Seção 3: Pena Cumprida entre Datas (Detração) -->
+        <div class="section" id="secao3">
+            <h2>Pena Cumprida entre Datas (Detração)</h2>
+            <div class="input-group">
+                <label>Data Inicial<br><input type="date" id="data-inicial"></label>
+                <label>Data Final<br><input type="date" id="data-final"></label>
+            </div>
+            <button onclick="calcularDiasEntreDatas()">Calcular Dias <small><i>(entre períodos)</small></i></button>
+            <p id="result-dias-entre-datas" class="result"></p>
+        </div>
+
+        <!-- Seção 4: Análise de Idade -->
+        <div class="section" id="secao4">
+            <h2>Análise de Idade</h2>
+            <div class="input-group">
+                <label>Data de Nascimento<br><input type="date" id="data-nascimento"></label>
+                <label>Data Marco<br><input type="date" id="data-marco"></label>
+            </div>
+            <button onclick="calcularIdade()">Calcular Idade <small><i>(até data marco)</i></small></button>
+            <p id="result-idade" class="result"></p>
+        </div>
+
+        <!-- Seção 5: Adicionar ou Subtrair Dias de uma Data -->
+        <div class="section" id="secao5">
+            <h2>Somar ou Subtrair Dias de uma Data</h2>
+            <div class="input-group">
+                <label>Data Base<br><input type="date" id="data-base"></label>
+                <label>Dias para Adicionar/Subtrair<br><input type="number" id="dias-adicionar" placeholder="Use negativo para subtrair (exemplo: -10)"></label>
+            </div>
+            <button onclick="adicionarDiasData()">Calcular Nova Data <small><i>(somar ou subtrair dias de uma data)</i></small></button>
+            <p id="result-adicionar-dias" class="result"></p>
+        </div>
+
+        <!-- Seção 6: Conversão de Dias para Anos, Meses e Dias -->
+        <div class="section" id="secao6">
+            <h2>Conversão (de Dia para Ano, Mês e Dia)</h2>
+            <div class="input-group">
+                <label>Dias<br><input type="number" id="dias-conversao" placeholder="Digite a quantidade de dias" min="0"></label>
+            </div>
+            <button onclick="converterDiasParaAnoMesDia()">Converter <small><i>(de dias para ano, mês e dia)</i></small></button>
+            <p id="result-conversao" class="result"></p>
+        </div>
+
+        <!-- Seção 7: Soma de Penas -->
+        <div class="section" id="secao7">
+            <h2>Soma de Penas</h2>
+            <div id="penas-container">
+                <div class="pena">
+                    <label>Anos:</label>
+                    <input type="number" class="anos" placeholder="0" min="0">
+                    <label>Meses:</label>
+                    <input type="number" class="meses" placeholder="0" min="0">
+                    <label>Dias:</label>
+                    <input type="number" class="dias" placeholder="0" min="0">
+                </div>
+            </div>
+            <button onclick="adicionarPena()">Adicionar Mais Penas</button>
+            <button onclick="calcularSomaPenas()">Calcular todas as penas</button>
+            <div class="result" id="result-soma"></div>
+        </div>
+
+        <!-- Seção 8: Análise de Prescrição -->
+        <div class="section" id="secao8">
+            <h2>Análise de Prescrição</h2>
+            <div class="input-group">
+                <label>Pena Total (Anos, Meses, Dias)<br>
+                    <input type="number" id="anos-pena" placeholder="Anos" min="0">
+                    <input type="number" id="meses-pena" placeholder="Meses" min="0">
+                    <input type="number" id="dias-pena" placeholder="Dias" min="0">
+                </label>
+            </div>
+            <div class="input-group">
+                <label>Data Inicial<br><input type="date" id="data-inicial-prescricao"></label>
+                <label>Data Final<br><input type="date" id="data-final-prescricao"></label>
+            </div>
+            <div class="input-group">
+                <label>Tipo de Prescrição<br>
+                    <select id="tipo-prescricao">
+                        <option value="abstrato">Prescrição da Pena em Abstrato</option>
+                        <option value="retroativa">Prescrição Retroativa</option>
+                        <option value="superveniente">Prescrição Superveniente</option>
+                        <option value="executoria">Prescrição da Pretensão Executória</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-group">
+                <label>Tempo de Prescrição (anos): <span id="tempo-prescricao-label">-</span></label>
+            </div>
+            <button onclick="calcularPrescricao()">Calcular Prescrição</button>
+            <p id="result-prescricao" class="result"></p>
+        </div>
+
+        <!-- Seção 9: Verificação de Horário de Trabalho -->
+        <div class="section" id="secao9">
+            <h2>Verificação de Horário de Trabalho</h2>
+            <h3>Segunda a Sexta</h3>
+            <div class="input-group">
+                <label>Horário de Entrada:<br><input type="time" id="entrada-seg-sex"></label>
+                <label>Horário de Saída:<br><input type="time" id="saida-seg-sex"></label>
+                <label>Intervalo (horas):<br><input type="number" id="intervalo-seg-sex" min="0" step="0.5"></label>
+            </div>
+            <h3>Sábado</h3>
+            <label><input type="checkbox" id="sabado-expediente" onchange="toggleCampos('sabado')"> Tem expediente?</label>
+            <div class="input-group" id="sabado-campos" style="display: none;">
+                <label>Horário de Entrada:<br><input type="time" id="entrada-sabado"></label>
+                <label>Horário de Saída:<br><input type="time" id="saida-sabado"></label>
+                <label>Intervalo (horas):<br><input type="number" id="intervalo-sabado" min="0" step="0.5"></label>
+            </div>
+            <h3>Domingo</h3>
+            <label><input type="checkbox" id="domingo-expediente" onchange="toggleCampos('domingo')"> Tem expediente?</label>
+            <div class="input-group" id="domingo-campos" style="display: none;">
+                <label>Horário de Entrada:<br><input type="time" id="entrada-domingo"></label>
+                <label>Horário de Saída:<br><input type="time" id="saida-domingo"></label>
+                <label>Intervalo (horas):<br><input type="number" id="intervalo-domingo" min="0" step="0.5"></label>
+            </div>
+            <h3>Feriados</h3>
+            <label><input type="checkbox" id="feriado-expediente" onchange="toggleCampos('feriado')"> Tem expediente?</label>
+            <div class="input-group" id="feriado-campos" style="display: none;">
+                                <label>Horário de Entrada:<br><input type="time" id="entrada-feriado"></label>
+                <label>Horário de Saída:<br><input type="time" id="saida-feriado"></label>
+                <label>Intervalo (horas):<br><input type="number" id="intervalo-feriado" min="0" step="0.5"></label>
+            </div>
+            <button onclick="calcularCargaHoraria()">Calcular Carga Horária</button>
+            <p id="result-carga-horaria" class="result"></p>
+        </div>
+    </div>
+
+    <script>
+        // Função para mostrar a seção selecionada e esconder as demais
+        function mostrarSecao(numeroSecao) {
+            for (let i = 1; i <= 9; i++) {
+                const secao = document.getElementById('secao' + i);
+                if (numeroSecao === 1 && (i === 1 || i === 2)) {
+                    secao.style.display = 'block';
+                } else if (i === numeroSecao) {
+                    secao.style.display = 'block';
+                } else {
+                    secao.style.display = 'none';
+                }
+            }
+        }
+
+        // Mostrar a primeira seção por padrão
+        mostrarSecao(0);
+
+        function formatarNumero(numero) {
+            return numero.toLocaleString('pt-BR');
+        }
+
+        function limparNumero(inputId) {
+            const input = document.getElementById(inputId);
+            input.value = input.value.replace(/[\.,]/g, '');
+        }
+
+        function calcularPenaEmDias() {
+            const anosTotal = parseInt(document.getElementById("anos-total").value) || 0;
+            const mesesTotal = parseInt(document.getElementById("meses-total").value) || 0;
+            const diasTotal = parseInt(document.getElementById("dias-total").value) || 0;
+            const totalDiasPena = (anosTotal * 365) + (mesesTotal * 30) + diasTotal;
+
+            const anosCumprida = parseInt(document.getElementById("anos-cumprida").value) || 0;
+            const mesesCumprida = parseInt(document.getElementById("meses-cumprida").value) || 0;
+            const diasCumprida = parseInt(document.getElementById("dias-cumprida").value) || 0;
+            const totalDiasCumprida = (anosCumprida * 365) + (mesesCumprida * 30) + diasCumprida;
+
+            document.getElementById("result-pena-dias").innerHTML = 
+                `<strong>Pena Total Unificada:</strong> ${formatarNumero(totalDiasPena)} dias<br><br>` +
+                `<strong>Pena Cumprida:</strong> ${formatarNumero(totalDiasCumprida)} dias`;
+        }
+
+        function calcularFracaoCumprida() {
+            limparNumero("total-pena");
+            limparNumero("pena-cumprida-dias");
+
+            const totalPena = parseInt(document.getElementById("total-pena").value) || 0;
+            const penaCumprida = parseInt(document.getElementById("pena-cumprida-dias").value) || 0;
+            const resultElement = document.getElementById("result-fracao-cumprida");
+
+            if (totalPena <= 0 || penaCumprida < 0) {
+                resultElement.innerHTML = "<span class='fail'>Por favor, insira valores válidos para a pena total e a pena cumprida.</span>";
+                return;
+            }
+
+            const fracoes = {
+                "1/2": Math.floor(totalPena * (1 / 2)),
+                "1/3": Math.floor(totalPena * (1 / 3)),
+                "1/4": Math.floor(totalPena * (1 / 4)),
+                "1/5": Math.floor(totalPena * (1 / 5)),
+                "1/6": Math.floor(totalPena * (1 / 6)),
+                "2/3": Math.floor(totalPena * (2 / 3)),
+                "2/5": Math.floor(totalPena * (2 / 5)),
+                "3/5": Math.floor(totalPena * (3 / 5)),
+                "3/8": Math.floor(totalPena * (3 / 8)),
+                "5/12": Math.floor(totalPena * (5 / 12)),
+                "11/24": Math.floor(totalPena * (11 / 24)),
+                "(16%)": Math.floor(totalPena * 16 / 100),
+                "(20%)": Math.floor(totalPena * 20 / 100),
+                "(25%)": Math.floor(totalPena * 25 / 100),
+                "(30%)": Math.floor(totalPena * 30 / 100),
+                "(40%)": Math.floor(totalPena * 40 / 100),
+                "(50%)": Math.floor(totalPena * 50 / 100),
+                "(55%)": Math.floor(totalPena * 55 / 100),
+                "(60%)": Math.floor(totalPena * 60 / 100),
+                "(70%)": Math.floor(totalPena * 70 / 100),
+            };
+
+            let resultado = "";
+            let contador = 0;
+
+            for (const [fracao, dias] of Object.entries(fracoes)) {
+                contador++;
+                const atingida = penaCumprida >= dias;
+                const className = atingida ? "success" : "fail";                
+
+                if (contador < 12) {
+                    resultado += `<div class="${className}">${fracao} da pena: ${formatarNumero(dias)} </div>`;
+                }
+                
+                if (contador === 12) {
+                    resultado += `<div class="progression-analysis"><h4>Progressão (Análise)</h4></div>`;
+                }
+                if (contador > 12) {
+                    const className = atingida ? "success1" : "fail1";     
+                    resultado += `<div class="${className}">${fracao} da pena: ${formatarNumero(dias)}</div>`;
+                }
+            }
+
+            resultElement.innerHTML = `
+                <div class="fractions-grid">
+                    ${resultado}
+                </div>`;
+        }
+
+        function calcularDiasEntreDatas() {
+            const dataInicialInput = document.getElementById("data-inicial").value;
+            const dataFinalInput = document.getElementById("data-final").value;
+            const resultElement = document.getElementById("result-dias-entre-datas");
+
+            if (!dataInicialInput || !dataFinalInput) {
+                resultElement.innerHTML = "<span class='fail'>Por favor, selecione ambas as datas.</span>";
+                return;
+            }
+
+            const dataInicial = new Date(dataInicialInput);
+            const dataFinal = new Date(dataFinalInput);
+
+            if (dataFinal < dataInicial) {
+                resultElement.innerHTML = "<span class='fail'>A data final não pode ser anterior à data inicial.</span>";
+                return;
+            }
+
+            // Calcula a diferença em milissegundos
+            const diferencaTempo = dataFinal.getTime() - dataInicial.getTime();
+
+            // Converte a diferença para dias
+            let diferencaDias = Math.ceil(diferencaTempo / (1000 * 3600 * 24));
+
+            resultElement.innerHTML = `<strong>Dias entre as datas:</strong> ${formatarNumero(diferencaDias)} dia(s)`;
+        }
+
+        function adicionarDiasData() {
+            limparNumero("dias-adicionar"); // Limpa o número antes de calcular
+
+            const dataBaseInput = document.getElementById("data-base").value;
+            const diasAdicionar = parseInt(document.getElementById("dias-adicionar").value) || 0;
+            const resultElement = document.getElementById("result-adicionar-dias");
+
+            if (!dataBaseInput) {
+                resultElement.innerHTML = "<span class='fail'>Por favor, selecione uma data base.</span>";
+                return;
+            }
+
+            // Cria a data base com horário zero
+            const dataBase = new Date(dataBaseInput + "T00:00:00");
+
+            // Calcula a data resultante em milissegundos
+            const milissegundosPorDia = 24 * 60 * 60 * 1000;
+            const dataResultado = new Date(dataBase.getTime() + diasAdicionar * milissegundosPorDia);
+
+            const dia = String(dataResultado.getUTCDate()).padStart(2, '0');
+            const mes = String(dataResultado.getUTCMonth() + 1).padStart(2, '0');
+            const ano = dataResultado.getUTCFullYear();
+
+            const dataFormatada = `${dia}/${mes}/${ano}`;
+
+            resultElement.innerHTML = `<strong>Data resultante:</strong> ${dataFormatada}`;
+        }
+
+        function calcularIdade() {
+            const dataNascimentoInput = document.getElementById("data-nascimento").value;
+            const dataMarcoInput = document.getElementById("data-marco").value;
+            const resultElement = document.getElementById("result-idade");
+
+            if (!dataNascimentoInput || !dataMarcoInput) {
+                resultElement.innerHTML = "<span class='fail'>Por favor, selecione ambas as datas.</span>";
+                return;
+            }
+
+            const dataNascimento = new Date(dataNascimentoInput);
+            const dataMarco = new Date(dataMarcoInput);
+
+            if (dataMarco < dataNascimento) {
+                resultElement.innerHTML = "<span class='fail'>A data marco não pode ser anterior à data de nascimento.</span>";
+                return;
+            }
+
+            let anos = dataMarco.getFullYear() - dataNascimento.getFullYear();
+            let meses = dataMarco.getMonth() - dataNascimento.getMonth();
+            let dias = dataMarco.getDate() - dataNascimento.getDate();
+
+            if (dias < 0) {
+                meses--;
+                dias += new Date(dataMarco.getFullYear(), dataMarco.getMonth(), 0).getDate();
+            }
+
+            if (meses < 0) {
+                anos--;
+                meses += 12;
+            }
+
+            resultElement.innerHTML = `<strong>Idade:</strong> ${anos} ano(s), ${meses} mes(es), e ${dias} dia(s)`;
+        }
+
+        function converterDiasParaAnoMesDia() {
+            limparNumero("dias-conversao"); // Limpa o número antes de calcular
+
+            const diasTotal = parseInt(document.getElementById("dias-conversao").value) || 0;
+
+            if (diasTotal <= 0) {
+                document.getElementById("result-conversao").innerHTML = "<span class='fail'>Por favor, insira um valor válido de dias.</span>";
+                return;
+            }
+
+            const anos = Math.floor(diasTotal / 365);
+            const meses = Math.floor((diasTotal % 365) / 30);
+            const dias = diasTotal % 365 % 30;
+
+            document.getElementById("result-conversao").innerHTML = 
+                `<strong>Resultado:</strong> ${anos} ano(s), ${meses} mes(es), e ${dias} dia(s)`;
+        }
+
+        function adicionarPena() {
+            const container = document.getElementById('penas-container');
+            const novaPena = document.createElement('div');
+            novaPena.classList.add('pena');
+            novaPena.innerHTML = `
+                <label>Anos:</label>
+                <input type="number" class="anos" placeholder="0" min="0">
+                <label>Meses:</label>
+                <input type="number" class="meses" placeholder="0" min="0">
+                <label>Dias:</label>
+                <input type="number" class="dias" placeholder="0" min="0">
+            `;
+            container.appendChild(novaPena);
+        }
+
+        function calcularSomaPenas() {
+            const anosInputs = document.querySelectorAll('.anos');
+            const mesesInputs = document.querySelectorAll('.meses');
+            const diasInputs = document.querySelectorAll('.dias');
+
+            let totalAnos = 0;
+            let totalMeses = 0;
+            let totalDias = 0;
+
+            anosInputs.forEach(input => totalAnos += parseInt(input.value) || 0);
+            mesesInputs.forEach(input => totalMeses += parseInt(input.value) || 0);
+            diasInputs.forEach(input => totalDias += parseInt(input.value) || 0);
+
+            // Ajustar meses e dias para anos e meses adicionais
+            totalAnos += Math.floor(totalMeses / 12);
+            totalMeses = totalMeses % 12;
+
+            totalMeses += Math.floor(totalDias / 30);
+            totalDias = totalDias % 30;
+
+            const totalDiasConvertidos = (totalAnos * 365) + (totalMeses * 30) + totalDias;
+
+            const resultDiv = document.getElementById('result-soma');
+            resultDiv.innerHTML = `
+                <p>Soma Total: ${totalAnos} ano(s), ${totalMeses} mês(es), ${totalDias} dia(s)</p>
+                <p>Total em dias: ${totalDiasConvertidos} dia(s)</p>
+            `;
+        }
+
+        function toggleCampos(dia) {
+            const checkbox = document.getElementById(dia + '-expediente');
+            const campos = document.getElementById(dia + '-campos');
+            campos.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        function calcularCargaHoraria() {
+            let totalSemanal = 0;
+            let diasTrabalhados = 5; // Segunda a sexta já contam como 5 dias fixos
+            
+            function calcularHoras(entrada, saida, intervalo) {
+                if (!entrada || !saida) return 0;
+                const inicio = new Date(`2024-01-01T${entrada}:00`);
+                const fim = new Date(`2024-01-01T${saida}:00`);
+                return Math.max((fim - inicio) / (1000 * 60 * 60) - intervalo, 0);
+            }
+            
+            totalSemanal += calcularHoras(
+                document.getElementById("entrada-seg-sex").value,
+                document.getElementById("saida-seg-sex").value,
+                parseFloat(document.getElementById("intervalo-seg-sex").value) || 0
+            ) * 5;
+            
+            if (document.getElementById("sabado-expediente").checked) {
+                totalSemanal += calcularHoras(
+                    document.getElementById("entrada-sabado").value,
+                    document.getElementById("saida-sabado").value,
+                    parseFloat(document.getElementById("intervalo-sabado").value) || 0
+                );
+                diasTrabalhados++;
+            }
+            
+            if (document.getElementById("domingo-expediente").checked) {
+                totalSemanal += calcularHoras(
+                    document.getElementById("entrada-domingo").value,
+                    document.getElementById("saida-domingo").value,
+                    parseFloat(document.getElementById("intervalo-domingo").value) || 0
+                );
+                diasTrabalhados++;
+            }
+            
+            if (document.getElementById("feriado-expediente").checked) {
+                totalSemanal += calcularHoras(
+                    document.getElementById("entrada-feriado").value,
+                    document.getElementById("saida-feriado").value,
+                    parseFloat(document.getElementById("intervalo-feriado").value) || 0
+                );
+                diasTrabalhados++;
+            }
+            
+            let totalDiario = Math.round(totalSemanal / diasTrabalhados);
+            let totalMensal = Math.round(totalSemanal * 5); // Mês com 5 semanas
+            
+            function definirCor(valor, limite) {
+                return valor > limite ? 'red' : 'blue';
+            }
+            
+            document.getElementById("result-carga-horaria").innerHTML =
+                `<strong>Carga Horária:</strong><br>
+                 <span style="color:${definirCor(totalDiario, 8)}"><strong>Diária:</strong> ${totalDiario} horas</span><br>
+                 <span style="color:${definirCor(totalSemanal, 44)}"><strong>Semanal:</strong> ${Math.round(totalSemanal)} horas</span><br>
+                 <span style="color:${definirCor(totalMensal, 220)}"><strong>Mensal:</strong> ${totalMensal} horas</span>`;
+            document.getElementById("result-carga-horaria").innerHTML += `<br><br><i><strong>Fonte:</strong> Legislação aplicada (Artigo 7º, XIII, CF e Artigo 58 CLT)</i>`;
+        }
+    </script>
+</body>
+</html>
